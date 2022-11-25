@@ -54,8 +54,8 @@ function onSubmit(e) {
   }
 
 function showUser(user) {
-     userList.innerHTML = userList.innerHTML + `<li id=${user.email}>${user.name}: ${user.email} 
-    <button class="btn delete" onclick=deleteUser('${user.email}')>X</button>
+     userList.innerHTML = userList.innerHTML + `<li id=${user._id}>${user.name}: ${user.email} 
+    <button class="btn delete" onclick=deleteUser('${user._id}')>X</button>
     <button class="btn edit" onclick=editUserDetails('${user.email}','${user.name}')>Edit</button></li> `
     }
 
@@ -73,11 +73,18 @@ function getData() {
 
   }
   
-  function deleteUser(emailId) {
-    localStorage.removeItem("userDetails" + emailId)
-    const toDelete = document.getElementById(emailId);
-    userList.removeChild(toDelete)
-  
+  function deleteUser(id) {
+    
+    axios.delete(`https://crudcrud.com/api/d87d98cd927d481296c478e7313193e1/users/${id}`)
+    .then(() => {
+      userList.removeChild(document.getElementById(id))
+    })
+    .catch(err => {
+        msg.classList.add('error')
+        msg.innerHTML = err
+        // Remove error after 3 seconds
+        setTimeout(() => msg.remove(), 3000)
+    })
   }
   
   function editUserDetails(emailId, name) {
