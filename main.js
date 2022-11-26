@@ -35,28 +35,17 @@ function onSubmit(e) {
         // Remove error after 3 seconds
         setTimeout(() => msg.remove(), 3000)
     })
-    // localStorage.setItem("userDetails", JSON.stringify(user))
-
-
-    // Clear fields
-    nameInput.value = '';
-    emailInput.value = '';
-
+    // localStorage.setItem("userDetails", JSON.stringify(user)) 
   }
-    // li.appendChild(document.createTextNode(`${nameInput.value}: ${emailInput.value}`));
-
-    // Append to ul
-    // userList.appendChild(li);
-
-    // Clear fields
-    nameInput.value = '';
-    emailInput.value = '';
+  // Clear fields
+  nameInput.value = '';
+  emailInput.value = '';
   }
 
 function showUser(user) {
      userList.innerHTML = userList.innerHTML + `<li id=${user._id}>${user.name}: ${user.email} 
     <button class="btn delete" onclick=deleteUser('${user._id}')>X</button>
-    <button class="btn edit" onclick=editUserDetails('${user.email}','${user.name}')>Edit</button></li> `
+    <button class="btn edit" onclick="editUserDetails('${user._id}','${user.name}','${user.email}')">Edit</button></li> `
     }
 
 function getData() {
@@ -87,10 +76,10 @@ function getData() {
     })
   }
   
-  function editUserDetails(emailId, name) {
+  function editUserDetails(id, name, email) {
+    // console.log(id,email,name)
+    document.querySelector('#email').value = email
+    document.querySelector('#name').value = name
   
-    emailInput.value = emailId;
-    nameInput.value = name;
-  
-    deleteUser(emailId)
+    deleteUser(id)
   }
